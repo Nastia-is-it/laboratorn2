@@ -9,55 +9,44 @@ namespace Lab2
 {
     internal class Fraction
     {
-        int numerator, denominator;
-        int newNum, newDen;
-        bool func = false;
+        int numerator, denominator;      
+        
         public Fraction(int numerator, int denominator)
         {
             this.numerator = numerator;
             this.denominator = denominator;     
         }
         
-        public void Addition(Fraction n)
+        public Fraction Addition(Fraction n)
         {
-            newNum = (numerator * n.denominator) + (n.numerator * denominator);
-            newDen = denominator * n.denominator;
-            func = true;
+            
+            return new Fraction((numerator * n.denominator + n.numerator * denominator), (denominator * n.denominator)); 
         }
-        public void Subtraction(Fraction n)
+        public Fraction Subtraction(Fraction n)
         {
-            newNum = (numerator * n.denominator) - (n.numerator * denominator);
-            newDen = denominator * n.denominator;
-            func = true;
+            return new Fraction((numerator * n.denominator - n.numerator * denominator), (denominator * n.denominator));
         }
-        public void Multiplication(Fraction n)
+        public Fraction Multiplication(Fraction n)
         {
-            newNum = numerator * n.numerator;
-            newDen = denominator * n.denominator;
-            func = true;
+            return new Fraction((numerator * n.numerator), (denominator * n.denominator));
         }
-        public void Division(Fraction n)
+        public Fraction Division(Fraction n)
         {
-            newNum = numerator * n.denominator;
-            newDen = denominator * n.numerator;
-            func = true;
+            return new Fraction((numerator * n.denominator), (denominator * n.numerator));
         }
 
-        private string result
+        public bool ErrorZero()
         {
-            get
+            if (denominator == 0)
             {
-                if (func)
-                {
-                    return newNum + "/" + newDen;
-                }
-                return numerator + "/" + denominator;
+                return true;
             }
-
+            return false;
         }
+
         public override string ToString() 
         {
-            return result;
+            return numerator + "/" + denominator;
         }
     }
 }

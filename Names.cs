@@ -8,31 +8,40 @@ namespace Lab2
 {
     internal class Names
     {
-        string name, surname, patronymic;
-        string res;
+        string name;
+        string surname;
+        string patronymic;
         public Names(string name)
         {
             this.name = name;
-            res = name;
+            surname = null;
+            patronymic = null;
         }
         public Names(string name, string surname)
         {
             this.name = name;
             this.surname = surname;
-            res = name + " " + surname;
+            patronymic = null;
         }
         public Names(string name, string surname, string patronymic) 
         {
             this.name = name;
             this.surname = surname;
             this.patronymic = patronymic;
-            res = name + " " + surname + " " + patronymic;
         }
 
         public override string ToString()
         {
-            return "Создалось имя: " + res;
+            string st = name;
+            if (surname != null)
+            {
+                st += " " + surname;
+            }
+            if (patronymic != null)
+            {
+                st += " " + patronymic;
+            }
+            return "Создалось имя: " + st;
         }
-
     }
 }

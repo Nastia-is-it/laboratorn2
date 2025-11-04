@@ -146,16 +146,22 @@ namespace Lab2
                         b2 = Convert.ToInt32(inputY);
                         break;
                     }
-                    line1.SetStart(x1, y1);
-                    line1.SetEnd(x2, y2);
-                    line2.SetStart(a1, b1);
-                    line2.SetEnd(a2, b2);
+                    line1.Start.X = x1;
+                    line1.Start.Y = y1;
+                    line1.End.X = x2;
+                    line1.End.Y = y2;
+
+                    line2.Start.X = a1;
+                    line2.Start.Y = b1;
+                    line2.End.X = a2;
+                    line2.End.Y = b2;
                     Console.Write("Изменённая линия 3: ");
                     Console.WriteLine(line3.ToString());
                     Console.WriteLine("Меняю координаты первой линии, чтобы не менялась третяя: ");
                     Console.WriteLine("Тогда надо менять координаты второй точки у первой линии");
                     Console.WriteLine("Меняю эту точку на {20, 20}:");
-                    line1.SetEnd(20, 20);
+                    line1.End.X = 20;
+                    line1.End.Y = 20;
                     Console.WriteLine("Теперь это: " + line1.ToString());
                     Console.WriteLine("Линия 3 не изменилась:");
                     Console.WriteLine(line3.ToString());
@@ -307,10 +313,10 @@ namespace Lab2
 
                     else if (t == 2)
                     {
-                        Console.WriteLine("Введите дробное число: ");
-                        Console.Write("Числитель: ");
+                        Console.WriteLine("Введите дробное число: ");                        
                         while (true)
                         {
+                            Console.Write("Числитель: ");
                             string input;
                             input = Console.ReadLine();
                             if (!inputChecks.ToNumbers(input))
@@ -321,29 +327,32 @@ namespace Lab2
                             n2 = Convert.ToInt32(input);
                             break;
                         }
-                        Console.Write("Знаменатель: ");
+
                         while (true)
                         {
-                            string input;
-                            input = Console.ReadLine();
-                            if (!inputChecks.ToNumbers(input))
+                            while (true)
                             {
-                                Console.WriteLine("Ошибка ввода. Введите число");
+                                Console.Write("Знаменатель: ");
+                                string input;
+                                input = Console.ReadLine();
+                                if (!inputChecks.ToNumbers(input))
+                                {
+                                    Console.WriteLine("Ошибка ввода. Введите число");
+                                    continue;
+                                }
+                                d2 = Convert.ToInt32(input);
+                                break;
+                            }
+                            number = new Fraction(n2, d2);
+                            if (number.ErrorZero())
+                            {
+                                Console.WriteLine("На ноль делить нельзя! Введите заново:");
                                 continue;
                             }
-                            if (input == "0")
-                            {
-                                Console.WriteLine("На ноль делить нельзя!");
-                                continue;
-                            }
-                            d2 = Convert.ToInt32(input);
-                            break;
                         }
-                        number = new Fraction(n2, d2);
                     }
 
                     string seenNum = fraction.ToString();
-
                     Console.Write("Сумма: ");
                     Fraction sum = new Fraction(n, d);
                     sum.Addition(number);

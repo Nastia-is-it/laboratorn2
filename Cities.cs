@@ -8,56 +8,43 @@ namespace Lab2
 {
     internal class Cities
     {
-        string name;
-        string[] connected = new string[10];
-        int[] paths = new int[10];
-        int count = 0;
-        public Cities(string name) 
+        private string name;
+        private List<string> connections;
+
+        public Cities(string name)
         {
             this.name = name;
+            this.connections = new List<string>();
         }
-        public Cities(string name, string[] connect, int[] pathCities)
+
+        public Cities(string name, string connectedCity, int cost)
         {
             this.name = name;
-
-            if (connect != null && pathCities != null && connect.Length == pathCities.Length)
-            {
-                for (int i = 0; i < connect.Length && count < connected.Length; i++)
-                {
-                    connected[count] = connect[i];
-                    paths[count] = pathCities[i];
-                    count++;
-                }
-            }
+            this.connections = new List<string>();
+            connections.Add(connectedCity + ":" + cost);
         }
 
-        public void Connection(string nameConnect, int path)
+        public void Connection(string cityName, int cost)
         {
-            if (count < connected.Length)
-            {
-                connected[count] = nameConnect;
-                paths[count] = path;
-                count++;
-            }
+            connections.Add(cityName + ":" + cost);
         }
 
         public override string ToString()
         {
-            string res = "";
-            if (count == 0)
+            if (connections.Count == 0)
             {
-                return name + "Нет связи";
+                return name + ": Нет связей";
             }
-            for (int i = 0; i < count; i++)
+            string res = name + ": ";
+            for (int i = 0; i < connections.Count; i++)
             {
-                res += name + "->" + connected[i] + ": " + paths[i];
-                if (i < count - 1)
+                res += connections[i];
+                if (i < connections.Count - 1)
+                {
                     res += ", ";
+                }
             }
             return res;
         }
-
-
-
     }
 }
